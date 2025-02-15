@@ -3,25 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>계좌번호 복사</title>
+    <title>계좌번호 자동 복사</title>
     <script>
         function copyToClipboard() {
             const accountNumber = "123-456-789012"; // 계좌번호 입력
             navigator.clipboard.writeText(accountNumber).then(() => {
-                alert("계좌번호가 복사되었습니다11111: " + accountNumber);
+                alert("✅ 계좌번호가 자동으로 복사되었습니다!\n(붙여넣기 하세요)");
             }).catch(err => {
-                console.warn("클립보드 복사 실패, 입력 필드를 활용합니다.");
+                console.warn("클립보드 복사 실패: 입력 필드 활용");
                 const inputField = document.getElementById("accountInput");
                 inputField.value = accountNumber;
                 inputField.select();
-                document.execCommand("copy"); // 기존 방식 사용
-                alert("계좌번호를 복사했습니다. 붙여넣기 해주세요!");
+                document.execCommand("copy"); // 예전 방식
+                alert("✅ 계좌번호를 복사했습니다! 직접 붙여넣기 해주세요.");
             });
         }
+
+        // 페이지 로드 시 자동 복사 실행
+        window.onload = function() {
+            setTimeout(copyToClipboard, 100); // 일부 모바일 브라우저에서 지연 실행
+        };
     </script>
 </head>
 <body>
     <input type="text" id="accountInput" value="123-456-789012" readonly style="position:absolute; left:-9999px;">
-    <button onclick="copyToClipboard()">계좌번호 복사하기</button>
+    <p>📋 계좌번호가 자동으로 복사되었습니다.</p>
+
+    <button onclick="copyToClipboard()">📌 복사가 안되면 클릭!</button>
+
+    <button onclick="window.location.href='intent://mumunamu.github.io/account-copy/#Intent;scheme=https;package=com.android.chrome;end;'">
+        📌 복사가 안되면 외부 브라우저에서 열기
+    </button>
 </body>
 </html>
