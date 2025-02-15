@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>계좌번호 복사</title>
+    <script>
+        function copyAccount() {
+            const accountNumber = "농협 123-456-789012";  // 🔹 계좌번호 입력
+            navigator.clipboard.writeText(accountNumber).then(() => {
+                alert("계좌번호가 복사되었습니다: " + accountNumber);
+                window.close(); // 자동으로 창 닫기
+            });
+        }
+    </script>
+</head>
+<body onload="copyAccount()">
+    <p>계좌번호를 복사 중입니다... 창을 닫아주세요.</p>
+</body>
+</html>
