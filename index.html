@@ -5,16 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>계좌번호 복사</title>
     <script>
-        function copyAccount() {
-            const accountNumber = "농협 123-456-789012";  // 🔹 계좌번호 입력
+        function copyToClipboard() {
+            const accountNumber = "123-456-789012"; // 계좌번호 입력
             navigator.clipboard.writeText(accountNumber).then(() => {
                 alert("계좌번호가 복사되었습니다: " + accountNumber);
-                window.close(); // 자동으로 창 닫기
+            }).catch(err => {
+                console.warn("클립보드 복사 실패, 입력 필드를 활용합니다.");
+                const inputField = document.getElementById("accountInput");
+                inputField.value = accountNumber;
+                inputField.select();
+                document.execCommand("copy"); // 기존 방식 사용
+                alert("계좌번호를 복사했습니다. 붙여넣기 해주세요!");
             });
         }
     </script>
 </head>
-<body onload="copyAccount()">
-    <p>계좌번호를 복사 중입니다... 창을 닫아주세요.</p>
+<body>
+    <input type="text" id="accountInput" value="123-456-789012" readonly style="position:absolute; left:-9999px;">
+    <button onclick="copyToClipboard()">계좌번호 복사하기</button>
 </body>
 </html>
